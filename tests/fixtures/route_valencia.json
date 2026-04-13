@@ -1,0 +1,49 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-0.3763, 39.4697],
+          [-0.3720, 39.4720],
+          [-0.3680, 39.4760],
+          [-0.3640, 39.4800],
+          [-0.3600, 39.4840],
+          [-0.3560, 39.4870]
+        ]
+      },
+      "properties": {
+        "summary": {
+          "distance": 3200.5,
+          "duration": 720.3
+        },
+        "way_points": [0, 5],
+        "segments": [
+          {
+            "distance": 3200.5,
+            "duration": 720.3,
+            "steps": []
+          }
+        ]
+      },
+      "bbox": [-0.3763, 39.4697, -0.3560, 39.4870]
+    }
+  ],
+  "metadata": {
+    "attribution": "openrouteservice.org",
+    "service": "routing",
+    "timestamp": 1711540800000,
+    "query": {
+      "coordinates": [[-0.3763, 39.4697], [-0.3560, 39.4870]],
+      "profile": "cycling-regular",
+      "format": "geojson"
+    },
+    "engine": {
+      "version": "8.0",
+      "build_date": "2024-03-01T00:00:00Z",
+      "graph_date": "2024-03-25T00:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+# .dockerignore — Archivos excluidos de la imagen Docker
+#
+# Docker envia el "build context" (todo el directorio) al daemon antes de
+# construir. .dockerignore reduce lo que se envia, haciendo el build mas
+# rapido y la imagen mas pequena.
+#
+# Regla: excluir todo lo que no sea necesario para CORRER la app.
+
+# Entorno virtual — las deps se instalan con uv en el contenedor
+.venv/
+
+# Variables de entorno — se pasan via docker-compose.yml, no se copian
+.env
+
+# Archivos compilados de Python — se regeneran automaticamente
+__pycache__/
+*.pyc
+*.pyo
+
+# Caches de herramientas de desarrollo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Contenido pedagogico — no necesario para la app
+snapshots/
+docs/
+scripts/
+
+# Archivos de documentacion
+*.md
+
+# Configuracion de Git y control de versiones
+.gitignore
+.git/
+
+# Tests — no se ejecutan en produccion
+tests/

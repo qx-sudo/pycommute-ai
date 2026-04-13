@@ -1,0 +1,13 @@
+{
+  "recommendation": "Toma el coche, las condiciones en Madrid son adversas con nieve ligera y 5 grados",
+  "suggested_profile": "driving-car",
+  "confidence": "alta",
+  "reasoning": "La nieve en Madrid hace que la bici y caminar sean opciones peligrosas",
+  "outfit_tips": [
+    "abrigo de invierno",
+    "bufanda",
+    "guantes",
+    "paraguas o chubasquero"
+  ],
+  "departure_advice": "Salir antes de las 14h para evitar el tráfico del mediodía con nieve"
+}

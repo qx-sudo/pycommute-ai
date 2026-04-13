@@ -1,0 +1,89 @@
+# docker-compose.yml — PyCommute AI
+#
+# Orquesta dos servicios:
+#   api    — la API FastAPI de PyCommute (lo que construimos)
+#   ollama — el servidor de IA local (para FallbackAIAdapter)
+#
+# Uso:
+#   docker compose up --build    # primera vez o cuando cambia el codigo
+#   docker compose up            # veces siguientes (sin rebuild)
+#   docker compose down          # detener y eliminar los contenedores
+#   docker compose logs api      # ver logs del servicio api
+
+services:
+
+  # ── Servicio principal: la API de PyCommute ─────────────────────────────────
+  api:
+    # build: . — el build context es el directorio actual.
+    # Ejecutar SIEMPRE desde dentro de curso/ (instructor y alumno):
+    #   cd curso && docker compose up --build
+    # Docker ve: pyproject.toml, uv.lock, src/ — todo en curso/.
+    build: .
+
+    # ports mapea "puerto del host":"puerto del contenedor"
+    # Con 8000:8000, http://localhost:8000 en tu maquina llega al puerto 8000
+    # del contenedor donde corre uvicorn.
+    ports:
+      - "8000:8000"
+
+    # environment pasa variables de entorno al contenedor.
+    # Pydantic-Settings las lee igual que si estuvieran en un .env.
+    # Las variables con ${...} se leen del .env en curso/.
+    # Docker Compose lo busca automaticamente en el directorio de trabajo.
+    environment:
+      # Claves de APIs externas — se leen de tu .env local
+      - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
+      - OPENROUTESERVICE_API_KEY=${OPENROUTESERVICE_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+
+      # URL de Ollama dentro de la red interna de Docker Compose.
+      # "ollama" es el nombre del servicio de abajo — Docker Compose
+      # lo convierte automaticamente en un hostname resolvible.
+      # Sin Docker Compose usariamos http://localhost:11434;
+      # dentro de Compose usamos http://ollama:11434.
+      - OLLAMA_BASE_URL=http://ollama:11434
+
+      # Modelo de Ollama a usar. Si no esta definido en .env, usa gemma3:1b.
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-gemma3:1b}
+
+      # Entorno de ejecucion y nivel de logs
+      - APP_ENV=production
+      - LOG_LEVEL=INFO
+
+    # depends_on indica que "api" debe esperar a que "ollama" arranque.
+    # Nota: solo espera a que el contenedor ARRANQUE, no a que Ollama
+    # este listo para responder peticiones. Para eso se usaria healthcheck.
+    depends_on:
+      - ollama
+
+    # restart: unless-stopped — si el contenedor falla, Docker lo reinicia
+    # automaticamente. Se para solo cuando el usuario lo detiene a proposito.
+    restart: unless-stopped
+
+  # ── Servicio de IA local: Ollama ────────────────────────────────────────────
+  ollama:
+    # image: usa una imagen publica de Docker Hub en lugar de un Dockerfile.
+    # ollama/ollama:latest es la imagen oficial de Ollama.
+    image: ollama/ollama:latest
+
+    # Puerto de Ollama — util para probarlo directamente desde el host.
+    # La API tambien lo usa internamente via http://ollama:11434.
+    ports:
+      - "11434:11434"
+
+    # volumes persiste los modelos de Ollama entre reinicios del contenedor.
+    # Sin esto, cada vez que reinicies el contenedor tendrias que volver
+    # a descargar el modelo (gemma3:1b son ~800MB).
+    # ollama_data es un "volumen nombrado" — se define al final del archivo.
+    volumes:
+      - ollama_data:/root/.ollama
+
+    # Igual que api: reiniciar si falla, parar solo si el usuario lo pide.
+    restart: unless-stopped
+
+# ── Volumenes nombrados ──────────────────────────────────────────────────────
+# Los volumenes nombrados persisten en el sistema aunque elimines los contenedores.
+# "docker compose down" elimina los contenedores pero NO los volumenes.
+# "docker compose down -v" elimina todo, incluyendo los modelos de Ollama.
+volumes:
+  ollama_data:
