@@ -2,8 +2,8 @@
 # Construye la imagen de la API FastAPI de PyCommute.
 #
 # Uso:
-#   docker build -t pycommute .
-#   docker run -p 8000:8000 pycommute
+#   docker build -t pycommute_ai. .
+#   docker run -p 8000:8000 pycommute_ai.
 #
 # O con Docker Compose (recomendado):
 #   docker compose up --build

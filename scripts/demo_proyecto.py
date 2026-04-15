@@ -12,10 +12,10 @@ Loguru se introduce en la Clase 3 como mejora explícita.
 
 Ejecutar:
     # Windows (PowerShell)
-    uv run python scripts/clase_02/demo_proyecto.py
+    uv run python scripts/demo_proyecto.py
 
     # Linux
-    uv run python scripts/clase_02/demo_proyecto.py
+    uv run python scripts/demo_proyecto.py
 """
 
 import os

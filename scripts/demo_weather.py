@@ -10,10 +10,10 @@ Loguru se introduce en la Clase 3 como mejora explícita.
 
 Ejecutar:
     # Windows (PowerShell)
-    uv run python scripts/clase_01/demo_weather.py
+    uv run python scripts/demo_weather.py
 
     # Linux
-    uv run python scripts/clase_01/demo_weather.py
+    uv run python scripts/demo_weather.py
 """
 
 import os

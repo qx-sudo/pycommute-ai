@@ -1,1 +1,1 @@
-"""Core de PyCommute — puertos y lógica de dominio."""
+"""Core de PyCommute AI — puertos y lógica de dominio."""
