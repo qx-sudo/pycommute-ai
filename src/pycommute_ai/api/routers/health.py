@@ -15,7 +15,7 @@ router = APIRouter()
 async def health() -> HealthResponse:
     """Estado del servicio y adaptadores configurados."""
     return HealthResponse(
-        status="ok",
+        status="OK",
         version=__version__,
         adapters={
             "weather": OpenWeatherAdapter.__name__,

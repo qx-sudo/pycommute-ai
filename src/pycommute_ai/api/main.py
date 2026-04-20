@@ -1,4 +1,4 @@
-"""Aplicacion FastAPI de PyCommute."""
+"""Aplicacion FastAPI de PyCommute AI."""
 
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
@@ -13,13 +13,13 @@ from pycommute_ai.api.routers import cities, commute, health
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Startup y shutdown del servidor."""
-    logger.info("PyCommute API v{version} iniciando...", version=__version__)
+    logger.info("PyCommute API AI v{version} iniciando...", version=__version__)
     yield
-    logger.info("PyCommute API cerrando...")
+    logger.info("PyCommute API AI cerrando...")
 
 
 app = FastAPI(
-    title="PyCommute API",
+    title="PyCommute API AI",
     description="Asesor de movilidad inteligente con IA hibrida (Gemini + Ollama fallback)",
     version=__version__,
     lifespan=lifespan,

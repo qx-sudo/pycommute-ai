@@ -1,4 +1,4 @@
-"""Puertos de PyCommute — contratos definidos con typing.Protocol.
+"""Puertos de PyCommute AI — contratos definidos con typing.Protocol.
 
 Un puerto define QUE hace un componente, no COMO lo hace.
 Cualquier clase que implemente estos metodos cumple el contrato
